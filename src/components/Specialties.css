@@ -438,13 +438,13 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .spec-section {
     padding: 48px 0 36px;
   }
 
   .spec-title {
-    font-size: 1.8rem;
+    font-size: 28px;
   }
 
   .spec-desc {
@@ -452,11 +452,23 @@
   }
 
   .spec-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .spec-grid::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
   }
 
   .spec-card {
+    min-width: 160px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
     border-radius: 18px;
     padding: 18px 14px 14px;
   }

@@ -39,6 +39,7 @@ const Medicines = () => {
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState('Bangalore, Karnataka');
   const [openFaq, setOpenFaq] = useState(0);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const locations = ['Bangalore, Karnataka', 'Delhi, NCR', 'Mumbai, Maharashtra', 'Chennai, Tamil Nadu', 'Kolkata, West Bengal', 'Hyderabad, Telangana'];
 
@@ -226,19 +227,41 @@ const Medicines = () => {
             </div>
           </div>
           <div className="med-product-layout">
-            {/* Sidebar filter (desktop only) */}
-            <aside className="med-sidebar-filters">
-              <div className="med-filter-group">
-                <h4>Categories</h4>
-                <label><input type="checkbox" /> Pain Relief</label>
-                <label><input type="checkbox" /> Vitamins</label>
-                <label><input type="checkbox" /> First Aid</label>
-                <label><input type="checkbox" /> Skin Care</label>
+            <div className="med-mobile-filter-bar mobile-only">
+              <button className="med-btn-outline med-mobile-filter-btn" onClick={() => setIsFilterOpen(true)}>
+                <Filter size={16} /> Filters
+              </button>
+            </div>
+
+            {/* Sidebar filter */}
+            <div className={`med-filter-overlay ${isFilterOpen ? 'open' : ''}`} onClick={() => setIsFilterOpen(false)}></div>
+            <aside className={`med-sidebar-filters ${isFilterOpen ? 'open' : ''}`}>
+              <div className="med-filter-header mobile-only">
+                <h4>Filters</h4>
+                <div className="med-filter-header-actions">
+                  <button className="med-filter-clear">Clear</button>
+                  <button className="med-filter-close" onClick={() => setIsFilterOpen(false)}><X size={20} /></button>
+                </div>
               </div>
-              <div className="med-filter-group">
-                <h4>Price Range</h4>
-                <input type="range" min="0" max="1000" className="med-range" />
-                <div className="med-range-vals"><span>₹0</span><span>₹1000+</span></div>
+              
+              <div className="med-filter-scroll">
+                <div className="med-filter-group">
+                  <h4>Categories</h4>
+                  <label><input type="checkbox" /> Pain Relief</label>
+                  <label><input type="checkbox" /> Vitamins</label>
+                  <label><input type="checkbox" /> First Aid</label>
+                  <label><input type="checkbox" /> Skin Care</label>
+                </div>
+                <div className="med-filter-group">
+                  <h4>Price Range</h4>
+                  <input type="range" min="0" max="1000" className="med-range" />
+                  <div className="med-range-vals"><span>₹0</span><span>₹1000+</span></div>
+                </div>
+              </div>
+
+              <div className="med-filter-bottom-actions mobile-only">
+                <button className="med-btn-outline" onClick={() => setIsFilterOpen(false)}>Reset</button>
+                <button className="med-btn-primary" onClick={() => setIsFilterOpen(false)}>Apply Filters</button>
               </div>
             </aside>
             

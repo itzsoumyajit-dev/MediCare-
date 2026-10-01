@@ -50,6 +50,7 @@ const LabTests = () => {
   const [openFaq, setOpenFaq] = useState(0);
   const [isLocOpen, setIsLocOpen] = useState(false);
   const [loc, setLoc] = useState('Bangalore');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Booking Modal State
   const [bookingModal, setBookingModal] = useState({ isOpen: false, item: null, type: null }); // type: 'test' | 'package'
@@ -219,39 +220,55 @@ const LabTests = () => {
           </div>
           
           <div className="lab-content-layout">
+            <div className="lab-mobile-filter-bar">
+              <button className="lab-btn-outline lab-mobile-filter-btn" onClick={() => setIsFilterOpen(true)}>
+                <Filter size={16} /> Filters
+              </button>
+            </div>
+
             {/* Filter Sidebar */}
-            <aside className="lab-sidebar-filters">
+            <div className={`lab-filter-overlay ${isFilterOpen ? 'open' : ''}`} onClick={() => setIsFilterOpen(false)}></div>
+            <aside className={`lab-sidebar-filters ${isFilterOpen ? 'open' : ''}`}>
               <div className="lab-filter-header">
                 <h4>Filters</h4>
-                <button className="lab-filter-clear">Clear</button>
+                <div className="lab-filter-header-actions">
+                  <button className="lab-filter-clear desktop-only">Clear</button>
+                  <button className="lab-filter-close mobile-only" onClick={() => setIsFilterOpen(false)}><X size={20} /></button>
+                </div>
               </div>
-              <div className="lab-filter-group">
-                <h5>Sample Type</h5>
-                <label><input type="checkbox" /> Blood</label>
-                <label><input type="checkbox" /> Urine</label>
-                <label><input type="checkbox" /> Stool</label>
-                <label><input type="checkbox" /> Other</label>
+              <div className="lab-filter-scroll">
+                <div className="lab-filter-group">
+                  <h5>Sample Type</h5>
+                  <label><input type="checkbox" /> Blood</label>
+                  <label><input type="checkbox" /> Urine</label>
+                  <label><input type="checkbox" /> Stool</label>
+                  <label><input type="checkbox" /> Other</label>
+                </div>
+                <div className="lab-filter-group">
+                  <h5>Home Collection</h5>
+                  <label><input type="radio" name="hc" /> Available</label>
+                  <label><input type="radio" name="hc" /> Not Available</label>
+                </div>
+                <div className="lab-filter-group">
+                  <h5>Report Time</h5>
+                  <label><input type="checkbox" /> Same Day</label>
+                  <label><input type="checkbox" /> 24 Hours</label>
+                  <label><input type="checkbox" /> 48 Hours</label>
+                </div>
+                <div className="lab-filter-group">
+                  <h5>Sort By</h5>
+                  <select className="lab-sort-select">
+                    <option>Popular</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Rating</option>
+                    <option>Fastest Report</option>
+                  </select>
+                </div>
               </div>
-              <div className="lab-filter-group">
-                <h5>Home Collection</h5>
-                <label><input type="radio" name="hc" /> Available</label>
-                <label><input type="radio" name="hc" /> Not Available</label>
-              </div>
-              <div className="lab-filter-group">
-                <h5>Report Time</h5>
-                <label><input type="checkbox" /> Same Day</label>
-                <label><input type="checkbox" /> 24 Hours</label>
-                <label><input type="checkbox" /> 48 Hours</label>
-              </div>
-              <div className="lab-filter-group">
-                <h5>Sort By</h5>
-                <select className="lab-sort-select">
-                  <option>Popular</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Rating</option>
-                  <option>Fastest Report</option>
-                </select>
+              <div className="lab-filter-bottom-actions mobile-only">
+                <button className="lab-btn-outline" onClick={() => setIsFilterOpen(false)}>Reset</button>
+                <button className="lab-btn-primary" onClick={() => setIsFilterOpen(false)}>Apply Filters</button>
               </div>
             </aside>
 

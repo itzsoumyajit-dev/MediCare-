@@ -561,41 +561,94 @@
 }
 
 /* Responsive */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .hero-container {
     grid-template-columns: 1fr;
+    gap: 48px;
   }
   .hero-right {
-    display: none;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 480px;
   }
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 3rem;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: 34px;
+  }
+  .hero-right {
+    min-height: auto;
+    padding-bottom: 32px;
+  }
+  .hero-image-wrapper {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    aspect-ratio: 380/460;
+    margin: 0 auto;
+  }
+  .hero-doctor-card {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: -60px;
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100% - 32px);
+    max-width: 280px;
+    z-index: 10;
+  }
+  .hero-fast-consult {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 767px) {
   .hero-search {
     flex-direction: column;
     border-radius: var(--radius-lg);
     gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .hero-search-location-wrapper {
+    width: 100%;
   }
   .hero-search-location {
     border-bottom: 1px solid var(--border);
     width: 100%;
+    border-radius: 0;
+    padding: 14px 16px;
   }
   .hero-search-divider {
     display: none;
   }
   .hero-search-input-wrap {
-    padding: 10px 12px;
+    padding: 14px 16px;
     width: 100%;
+    border-bottom: 1px solid var(--border);
   }
   .hero-search-btn {
     width: 100%;
     justify-content: center;
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    border-radius: 0;
+    padding: 16px 24px;
   }
   .hero-features {
     gap: 12px;
+  }
+  .hero-location-dropdown {
+    width: 100%;
+    max-width: 300px;
   }
 }

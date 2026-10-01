@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Globe, Mail, MessageCircle, Phone, Stethoscope } from 'lucide-react';
 import './Footer.css';
+
+const FooterCol = ({ title, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className={`footer-col ${isOpen ? 'open' : ''}`}>
+      <h4 onClick={() => setIsOpen(!isOpen)}>
+        {title} 
+        <span className="footer-accordion-icon">{isOpen ? '-' : '+'}</span>
+      </h4>
+      <div className="footer-col-content">
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const Footer = () => {
   return (
@@ -34,8 +49,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer-col">
-            <h4>For Patients</h4>
+          <FooterCol title="For Patients">
             <ul>
               <li><a href="#">Search for Doctors</a></li>
               <li><a href="#">Search for Clinics</a></li>
@@ -44,10 +58,9 @@ const Footer = () => {
               <li><a href="#">Book Full Body Checkups</a></li>
               <li><a href="#">Read Health Articles</a></li>
             </ul>
-          </div>
+          </FooterCol>
 
-          <div className="footer-col">
-            <h4>For Providers</h4>
+          <FooterCol title="For Providers">
             <ul>
               <li><a href="#">Provider Profile</a></li>
               <li><a href="#">Provider Reach</a></li>
@@ -55,10 +68,9 @@ const Footer = () => {
               <li><a href="#">Provider Consult</a></li>
               <li><a href="#">Health Records</a></li>
             </ul>
-          </div>
+          </FooterCol>
 
-          <div className="footer-col">
-            <h4>More</h4>
+          <FooterCol title="More">
             <ul>
               <li><a href="#">Help & Support</a></li>
               <li><a href="#">Privacy Policy</a></li>
@@ -66,7 +78,7 @@ const Footer = () => {
               <li><a href="#">About Us</a></li>
               <li><a href="#">Contact</a></li>
             </ul>
-          </div>
+          </FooterCol>
         </div>
 
         <div className="footer-bottom">

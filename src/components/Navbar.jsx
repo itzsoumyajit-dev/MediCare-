@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, ChevronDown, User, Menu, ArrowRight } from 'lucide-react';
+import { Search, ChevronDown, User, Menu, ArrowRight, X } from 'lucide-react';
 import AuthModal from './AuthModal';
 import './Navbar.css';
 
@@ -8,6 +8,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authView, setAuthView] = useState('login');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const Navbar = () => {
   const openAuth = (view) => {
     setAuthView(view);
     setIsAuthOpen(true);
+    setIsMobileMenuOpen(false); // Close mobile menu if open
   };
 
   return (
@@ -67,8 +69,41 @@ const Navbar = () => {
             <button className="nav-signup-btn" onClick={() => openAuth('signup')}>
               Sign Up <ArrowRight size={16} />
             </button>
-            <button className="nav-menu-btn">
+            <button className="nav-menu-btn" onClick={() => setIsMobileMenuOpen(true)}>
               <Menu size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+        <div className={`mobile-menu-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
+          <div className="mobile-menu-header">
+            <div className="nav-logo-text">
+              <span className="nav-logo-name">Medi<span className="text-primary">Care+</span></span>
+            </div>
+            <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+              <X size={24} />
+            </button>
+          </div>
+          
+          <nav className="mobile-menu-links">
+            <Link to="/" className={`mobile-nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Find Doctors</Link>
+            <Link to="/video-consult" className={`mobile-nav-link ${location.pathname === '/video-consult' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Video Consult</Link>
+            <Link to="/medicines" className={`mobile-nav-link ${location.pathname === '/medicines' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Medicines</Link>
+            <Link to="/lab-tests" className={`mobile-nav-link ${location.pathname === '/lab-tests' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>Lab Tests</Link>
+            <a href="#" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Hospitals</a>
+            <a href="#" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Health Packages</a>
+            <a href="#" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>For Providers</a>
+          </nav>
+          
+          <div className="mobile-menu-auth">
+            <button className="mobile-login-btn" onClick={() => openAuth('login')}>
+              <User size={20} />
+              Login
+            </button>
+            <button className="mobile-signup-btn" onClick={() => openAuth('signup')}>
+              Sign Up <ArrowRight size={20} />
             </button>
           </div>
         </div>

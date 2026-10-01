@@ -616,6 +616,43 @@
   top: 100px;
 }
 
+.med-mobile-filter-bar {
+  display: none;
+  margin-bottom: 16px;
+  width: 100%;
+}
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+.med-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.med-filter-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.med-filter-clear {
+  background: transparent;
+  border: none;
+  color: #2563EB;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.med-filter-close {
+  background: transparent;
+  border: none;
+  color: #64748B;
+  cursor: pointer;
+}
+
 .med-filter-group {
   margin-bottom: 24px;
 }
@@ -1450,27 +1487,34 @@
   .med-hero-actions { justify-content: center; }
   .med-trust-points { justify-content: center; }
   
-  .med-product-layout { flex-direction: column; }
-  .med-sidebar-filters { width: 100%; position: static; display: flex; gap: 24px; }
-  
   .med-presc-container { grid-template-columns: 1fr; }
   .med-presc-right { text-align: center; }
   .med-presc-steps { align-items: center; }
   .med-safety-note { justify-content: center; text-align: left; max-width: 400px; margin: 24px auto 0; }
 }
 
-@media (max-width: 640px) {
-  .med-hero-title { font-size: 2.2rem; }
+@media (max-width: 767px) {
+  .med-hero-title { font-size: 34px; }
   .med-search-bar { flex-direction: column; background: transparent; border: none; padding: 0; }
   .med-search-input-wrap { background: white; border: 1px solid #E2E8F0; width: 100%; padding: 4px 16px; border-radius: 12px; margin-bottom: 12px; }
   .med-search-btn { width: 100%; }
   
   .med-actions-grid { grid-template-columns: 1fr; }
-  .med-category-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .med-product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .med-features-grid { grid-template-columns: 1fr; }
   
-  .med-sidebar-filters { flex-direction: column; gap: 16px; }
+  .med-category-grid { 
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .med-category-grid::-webkit-scrollbar { display: none; }
+  .med-category-card { flex: 0 0 auto; min-width: 100px; scroll-snap-align: start; }
+  
+  .med-product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  
+  .med-features-grid { grid-template-columns: 1fr; }
   
   .med-works-grid { grid-template-columns: 1fr; gap: 40px; }
   .med-works-connector { display: none; }
@@ -1479,4 +1523,45 @@
   .med-cta-actions { flex-direction: column; }
   
   .med-cart-drawer { width: 100%; }
+  
+  /* Filter Mobile Adjustments */
+  .med-product-layout { flex-direction: column; }
+  .med-mobile-filter-bar { display: flex; }
+  .med-mobile-filter-btn { width: 100%; min-height: 48px; }
+  .desktop-only { display: none; }
+  .mobile-only { display: flex; }
+  
+  .med-filter-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15,23,42,0.4); backdrop-filter: blur(4px);
+    z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s;
+  }
+  .med-filter-overlay.open { opacity: 1; visibility: visible; }
+  
+  .med-sidebar-filters {
+    position: fixed; bottom: -100%; left: 0; width: 100%;
+    background: white; border-radius: 24px 24px 0 0;
+    z-index: 1001; transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 85vh; padding: 24px;
+    display: flex; flex-direction: column;
+  }
+  .med-sidebar-filters.open { bottom: 0; }
+  .med-filter-scroll { flex: 1; overflow-y: auto; padding-bottom: 16px; }
+  .med-filter-bottom-actions { display: flex; gap: 12px; margin-top: 16px; width: 100%; }
+  .med-filter-bottom-actions button { flex: 1; }
+  
+  /* Make Med Product Cards responsive */
+  .med-product-card {
+    padding: 12px;
+  }
+  .med-product-img-wrap {
+    height: 120px;
+    padding: 10px;
+  }
+  .med-product-name {
+    font-size: 0.9rem;
+  }
+  .med-qty-controls {
+    flex-wrap: wrap;
+  }
 }
