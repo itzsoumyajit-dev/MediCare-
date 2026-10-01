@@ -1,0 +1,469 @@
+/* ═══════════════════════════════════════════════
+   POPULAR SPECIALTIES SECTION
+   Pixel-perfect recreation from reference
+   ═══════════════════════════════════════════════ */
+
+.spec-section {
+  position: relative;
+  padding: 70px 0 50px;
+  background: linear-gradient(180deg,
+      #F0F6FF 0%,
+      #F5F9FF 40%,
+      #FAFCFF 70%,
+      #FFFFFF 100%);
+  overflow: hidden;
+}
+
+/* ── Decorative circles ── */
+.spec-deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.spec-deco-circle-1 {
+  width: 340px;
+  height: 340px;
+  top: -60px;
+  right: -40px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+}
+
+.spec-deco-circle-2 {
+  width: 200px;
+  height: 200px;
+  top: 160px;
+  right: 120px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
+}
+
+.spec-deco-circle-3 {
+  width: 120px;
+  height: 120px;
+  bottom: 80px;
+  left: -30px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
+}
+
+/* ── Decorative medical crosses ── */
+.spec-cross {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+.spec-cross-1 {
+  top: 40px;
+  right: 60px;
+  opacity: 0.3;
+  animation: crossFloat 6s ease-in-out infinite;
+}
+
+.spec-cross-2 {
+  top: 200px;
+  right: 30px;
+  opacity: 0.15;
+  animation: crossFloat 8s ease-in-out infinite 1s;
+}
+
+.spec-cross-3 {
+  bottom: 140px;
+  left: 50px;
+  opacity: 0.12;
+  animation: crossFloat 7s ease-in-out infinite 0.5s;
+}
+
+.spec-cross-4 {
+  top: 80px;
+  right: 280px;
+  opacity: 0.1;
+  animation: crossFloat 9s ease-in-out infinite 2s;
+}
+
+@keyframes crossFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(8deg);
+  }
+}
+
+/* ── Container ── */
+.spec-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════ */
+
+.spec-header {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 36px;
+}
+
+.spec-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 8px;
+}
+
+/* Badge pill */
+.spec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(219, 234, 254, 0.6);
+  border: 1px solid rgba(147, 197, 253, 0.35);
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  height: 38px;
+}
+
+/* Title */
+.spec-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+}
+
+.spec-title-accent {
+  color: var(--primary);
+}
+
+/* Description */
+.spec-desc {
+  font-size: 1.05rem;
+  color: #64748B;
+  line-height: 1.75;
+  max-width: 520px;
+}
+
+/* ═══════════════════════════════════════════════
+   DOCTOR CUTOUT AREA
+   ═══════════════════════════════════════════════ */
+
+.spec-doctor-area {
+  position: relative;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.spec-doctor-bg-shape {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(191, 219, 254, 0.4), rgba(219, 234, 254, 0.2));
+  z-index: 0;
+}
+
+.spec-doctor-img {
+  position: relative;
+  z-index: 1;
+  height: 300px;
+  width: auto;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 0 0 20px 20px;
+  mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.08));
+}
+
+/* Handwritten annotation */
+.spec-doctor-annotation {
+  position: absolute;
+  top: 12px;
+  left: -10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  transform: rotate(-6deg);
+}
+
+.spec-doctor-annotation span {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--primary);
+  opacity: 0.7;
+  line-height: 1.35;
+}
+
+.spec-doctor-annotation span:nth-child(1) {
+  font-size: 1rem;
+}
+
+.spec-doctor-annotation span:nth-child(2) {
+  font-size: 0.92rem;
+}
+
+.spec-doctor-annotation span:nth-child(3) {
+  font-size: 0.88rem;
+}
+
+.spec-annotation-line {
+  margin-top: 2px;
+  opacity: 0.4;
+}
+
+/* ═══════════════════════════════════════════════
+   VIEW ALL + CARDS HEADER
+   ═══════════════════════════════════════════════ */
+
+.spec-cards-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.spec-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: gap 0.25s ease;
+}
+
+.spec-view-all:hover {
+  gap: 10px;
+}
+
+/* ═══════════════════════════════════════════════
+   SPECIALTY CARDS GRID
+   ═══════════════════════════════════════════════ */
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px;
+}
+
+/* ── Individual Card ── */
+.spec-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1.5px solid #E8EDF4;
+  border-radius: 22px;
+  padding: 22px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    border-color 0.25s ease-out;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.spec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  border-color: #CBD5E1;
+}
+
+/* ── Popular card ── */
+.spec-card-popular {
+  border-color: #93C5FD;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.1);
+}
+
+.spec-card-popular:hover {
+  border-color: #60A5FA;
+  box-shadow: 0 8px 28px rgba(59, 130, 246, 0.15);
+}
+
+/* Popular pill */
+.spec-popular-pill {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #2563EB, #3B82F6);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+/* ── Icon container ── */
+.spec-icon-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.spec-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spec-card:hover .spec-icon-wrap {
+  transform: scale(1.06);
+}
+
+/* ── Card body ── */
+.spec-card-body {
+  flex: 1;
+  margin-bottom: 14px;
+}
+
+.spec-card-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.spec-card-desc {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  line-height: 1.4;
+}
+
+/* ── Card footer ── */
+.spec-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #F1F5F9;
+}
+
+.spec-card-cta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748B;
+  transition: color 0.25s ease;
+}
+
+.spec-card:hover .spec-card-cta {
+  color: #334155;
+}
+
+.spec-card-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.spec-card:hover .spec-card-arrow {
+  transform: scale(1.08);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+  .spec-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .spec-header {
+    grid-template-columns: 1fr 320px;
+  }
+
+  .spec-title {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .spec-header {
+    grid-template-columns: 1fr;
+  }
+
+  .spec-doctor-area {
+    display: none;
+  }
+
+  .spec-title {
+    font-size: 2.2rem;
+  }
+
+  .spec-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .spec-section {
+    padding: 48px 0 36px;
+  }
+
+  .spec-title {
+    font-size: 1.8rem;
+  }
+
+  .spec-desc {
+    font-size: 0.95rem;
+  }
+
+  .spec-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .spec-card {
+    border-radius: 18px;
+    padding: 18px 14px 14px;
+  }
+
+  .spec-icon-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+  }
+}
