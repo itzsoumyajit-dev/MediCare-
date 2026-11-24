@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Heart, Crown } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 import './Specialties.css';
 
 const specialties = [
@@ -135,38 +136,40 @@ const Specialties = () => {
         </div>
 
         <div className="spec-grid">
-          {specialties.map((spec) => (
-            <div
-              key={spec.id}
-              className={`spec-card ${spec.popular ? 'spec-card-popular' : ''}`}
-            >
-              {spec.popular && (
-                <div className="spec-popular-pill">
-                  <Crown size={11} />
-                  <span>Popular</span>
+          {specialties.map((spec, index) => (
+            <ScrollReveal key={spec.id} direction="up" delay={index * 0.1}>
+              <div
+                className={`spec-card ${spec.popular ? 'spec-card-popular' : ''}`}
+                style={{ height: '100%' }}
+              >
+                {spec.popular && (
+                  <div className="spec-popular-pill">
+                    <Crown size={11} />
+                    <span>Popular</span>
+                  </div>
+                )}
+
+                <div className="spec-icon-wrap">
+                  <img src={spec.icon} alt={`${spec.name} Icon`} className="spec-icon-img" />
                 </div>
-              )}
 
-              <div className="spec-icon-wrap">
-                <img src={spec.icon} alt={`${spec.name} Icon`} className="spec-icon-img" />
-              </div>
+                <div className="spec-card-body">
+                  <h4 className="spec-card-name">{spec.name}</h4>
+                  <p className="spec-card-desc">{spec.desc}</p>
+                </div>
 
-              <div className="spec-card-body">
-                <h4 className="spec-card-name">{spec.name}</h4>
-                <p className="spec-card-desc">{spec.desc}</p>
+                <div className="spec-card-footer">
+                  <span className="spec-card-cta">Consult Experts</span>
+                  <button
+                    className="spec-card-arrow"
+                    style={{ background: spec.arrowBg, color: spec.arrowColor }}
+                    aria-label={`Consult ${spec.name}`}
+                  >
+                    <ArrowRight size={15} />
+                  </button>
+                </div>
               </div>
-
-              <div className="spec-card-footer">
-                <span className="spec-card-cta">Consult Experts</span>
-                <button
-                  className="spec-card-arrow"
-                  style={{ background: spec.arrowBg, color: spec.arrowColor }}
-                  aria-label={`Consult ${spec.name}`}
-                >
-                  <ArrowRight size={15} />
-                </button>
-              </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Heart, ShieldCheck, Monitor, Truck, FlaskConical, Stethoscope, Video, Pill, TestTube2, Building2, MapPin, Search, ChevronDown, ArrowRight, Star, CheckCircle2, Clock } from 'lucide-react';
+import { useCity } from '../context/CityContext';
 import './Hero.css';
 
 const tabs = [
@@ -10,12 +11,28 @@ const tabs = [
   { id: 'hospitals', label: 'Hospitals', icon: <Building2 size={16} /> },
 ];
 
-const locations = ['Bangalore', 'Delhi', 'Mumbai', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'];
-
 const Hero = () => {
   const [activeTab, setActiveTab] = useState('doctors');
   const [isLocationOpen, setIsLocationOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState('Bangalore');
+  const { selectedCity, setSelectedCity, cities } = useCity();
+  const locationWrapperRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (locationWrapperRef.current && !locationWrapperRef.current.contains(event.target)) {
+        setIsLocationOpen(false);
+      }
+    };
+
+    if (isLocationOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isLocationOpen]);
 
   return (
     <section className="hero">
@@ -93,40 +110,40 @@ const Hero = () => {
 
           {/* Search Bar */}
           <div className="hero-search">
-            <div className="hero-search-location-wrapper">
-              <div
+            <div className="hero-search-location-wrapper" ref={locationWrapperRef}>
+              <button
+                type="button"
                 className="hero-search-location"
-                onClick={() => setIsLocationOpen(!isLocationOpen)}
+                onClick={() => setIsLocationOpen(prev => !prev)}
+                aria-expanded={isLocationOpen}
               >
                 <MapPin size={18} className="search-icon" />
-                <span className="hero-location-text">{selectedLocation}</span>
+                <span className="hero-location-text">{selectedCity}</span>
                 <ChevronDown size={14} className={`location-arrow ${isLocationOpen ? 'open' : ''}`} />
-              </div>
+              </button>
 
               {isLocationOpen && (
-                <>
-                  <div className="hero-location-overlay" onClick={() => setIsLocationOpen(false)}></div>
-                  <div className="hero-location-dropdown">
-                    <div className="hero-location-dropdown-header">
-                      Select City
-                    </div>
-                    <div className="hero-location-list">
-                      {locations.map(loc => (
-                        <div
-                          key={loc}
-                          className={`hero-location-item ${selectedLocation === loc ? 'selected' : ''}`}
-                          onClick={() => {
-                            setSelectedLocation(loc);
-                            setIsLocationOpen(false);
-                          }}
-                        >
-                          <MapPin size={14} className="hero-location-item-icon" />
-                          {loc}
-                        </div>
-                      ))}
-                    </div>
+                <div className="hero-location-dropdown">
+                  <div className="hero-location-dropdown-header">
+                    Select City
                   </div>
-                </>
+                  <div className="hero-location-list">
+                    {cities.map(loc => (
+                      <button
+                        type="button"
+                        key={loc}
+                        className={`hero-location-item ${selectedCity === loc ? 'selected' : ''}`}
+                        onClick={() => {
+                          setSelectedCity(loc);
+                          setIsLocationOpen(false);
+                        }}
+                      >
+                        <MapPin size={14} className="hero-location-item-icon" />
+                        <span>{loc}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
             <div className="hero-search-divider" />

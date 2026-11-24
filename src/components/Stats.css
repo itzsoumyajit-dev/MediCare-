@@ -24,6 +24,18 @@
   border-right: 1px solid var(--border);
 }
 
+.stat-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  background: white;
+}
+
 .stat-icon {
   width: 52px;
   height: 52px;

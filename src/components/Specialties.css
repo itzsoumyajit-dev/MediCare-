@@ -283,9 +283,9 @@
 }
 
 .spec-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-  border-color: #CBD5E1;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(59, 130, 246, 0.12);
+  border-color: #93C5FD;
 }
 
 /* ── Popular card ── */
@@ -295,8 +295,9 @@
 }
 
 .spec-card-popular:hover {
-  border-color: #60A5FA;
-  box-shadow: 0 8px 28px rgba(59, 130, 246, 0.15);
+  border-color: #3B82F6;
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+  transform: translateY(-10px) scale(1.03);
 }
 
 /* Popular pill */

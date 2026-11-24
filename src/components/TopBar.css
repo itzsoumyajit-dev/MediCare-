@@ -39,6 +39,66 @@
   gap: 6px;
   cursor: pointer;
   transition: var(--transition);
+  position: relative;
+}
+
+.topbar-city-wrapper {
+  user-select: none;
+}
+
+.topbar-city-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #ffffff;
+  width: 180px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  z-index: 10000;
+  text-align: left;
+}
+
+.topbar-city-header {
+  padding: 10px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748B;
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.topbar-city-list {
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.topbar-city-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #1E293B;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.topbar-city-option:hover {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.topbar-city-option.selected {
+  background: #EFF6FF;
+  color: #2563EB;
+  font-weight: 600;
 }
 
 .topbar-item:hover {
