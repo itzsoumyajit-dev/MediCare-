@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, ChevronDown, User, Menu, ArrowRight, X, LogOut, Calendar, FileText, ShieldCheck } from 'lucide-react';
 import AuthModal from './AuthModal';
+import LogoIcon from './LogoIcon';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
@@ -50,16 +51,7 @@ const Navbar = () => {
         <div className="container navbar-inner">
           <Link to="/" className="nav-logo">
             <div className="nav-logo-icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
-                <path d="M16 8c-2.2 0-4 1.8-4 4v2h-1a1 1 0 00-1 1v6a1 1 0 001 1h10a1 1 0 001-1v-6a1 1 0 00-1-1h-1v-2c0-2.2-1.8-4-4-4zm2 6h-4v-2a2 2 0 114 0v2z" fill="white" opacity="0.9"/>
-                <defs>
-                  <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
-                    <stop stopColor="#3B82F6"/>
-                    <stop offset="1" stopColor="#06B6D4"/>
-                  </linearGradient>
-                </defs>
-              </svg>
+              <LogoIcon size={34} id="navLogo" />
             </div>
             <div className="nav-logo-text">
               <span className="nav-logo-name">Medi<span className="text-primary">Care+</span></span>
@@ -163,9 +155,14 @@ const Navbar = () => {
         <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
         <div className={`mobile-menu-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
           <div className="mobile-menu-header">
-            <div className="nav-logo-text">
-              <span className="nav-logo-name">Medi<span className="text-primary">Care+</span></span>
-            </div>
+            <Link to="/" className="nav-logo" onClick={() => setIsMobileMenuOpen(false)}>
+              <div className="nav-logo-icon">
+                <LogoIcon size={30} id="mobileNavLogo" />
+              </div>
+              <div className="nav-logo-text">
+                <span className="nav-logo-name">Medi<span className="text-primary">Care+</span></span>
+              </div>
+            </Link>
             <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)} aria-label="Close menu">
               <X size={24} />
             </button>

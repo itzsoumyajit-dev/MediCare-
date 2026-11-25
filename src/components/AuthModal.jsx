@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff, AlertCircle, CheckCircle2, Sparkles, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import LogoIcon from './LogoIcon';
 import './AuthModal.css';
 
 const AuthModal = ({ isOpen, onClose, initialView = 'login' }) => {
@@ -91,16 +92,7 @@ const AuthModal = ({ isOpen, onClose, initialView = 'login' }) => {
 
         <div className="auth-modal-left">
           <div className="auth-modal-logo">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-              <rect width="32" height="32" rx="8" fill="url(#authLogoGrad)"/>
-              <path d="M16 8c-2.2 0-4 1.8-4 4v2h-1a1 1 0 00-1 1v6a1 1 0 001 1h10a1 1 0 001-1v-6a1 1 0 00-1-1h-1v-2c0-2.2-1.8-4-4-4zm2 6h-4v-2a2 2 0 114 0v2z" fill="white" opacity="0.9"/>
-              <defs>
-                <linearGradient id="authLogoGrad" x1="0" y1="0" x2="32" y2="32">
-                  <stop stopColor="#3B82F6"/>
-                  <stop offset="1" stopColor="#06B6D4"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <LogoIcon size={30} id="authModalLogo" />
             <span>Medi<span className="text-primary">Care+</span></span>
           </div>
           <div className="auth-modal-left-content">
