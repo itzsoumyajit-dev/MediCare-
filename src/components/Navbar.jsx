@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, ChevronDown, User, Menu, ArrowRight, X } from 'lucide-react';
+import { Search, ChevronDown, User, Menu, ArrowRight, X, LogOut, Calendar, FileText, ShieldCheck } from 'lucide-react';
 import AuthModal from './AuthModal';
+import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -9,7 +10,11 @@ const Navbar = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authView, setAuthView] = useState('login');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const userDropdownRef = useRef(null);
   const location = useLocation();
+
+  const { user, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -17,10 +22,26 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(e.target)) {
+        setIsUserDropdownOpen(false);
+      }
+    };
+    if (isUserDropdownOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('touchstart', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [isUserDropdownOpen]);
+
   const openAuth = (view) => {
     setAuthView(view);
     setIsAuthOpen(true);
-    setIsMobileMenuOpen(false); // Close mobile menu if open
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -59,17 +80,80 @@ const Navbar = () => {
           </nav>
 
           <div className="nav-actions">
-            <button className="nav-search-btn">
+            <button className="nav-search-btn" aria-label="Search">
               <Search size={20} />
             </button>
-            <button className="nav-login-btn" onClick={() => openAuth('login')}>
-              <User size={16} />
-              Login
-            </button>
-            <button className="nav-signup-btn" onClick={() => openAuth('signup')}>
-              Sign Up <ArrowRight size={16} />
-            </button>
-            <button className="nav-menu-btn" onClick={() => setIsMobileMenuOpen(true)}>
+
+            {isAuthenticated && user ? (
+              <div className="nav-user-profile" ref={userDropdownRef}>
+                <button 
+                  type="button"
+                  className="nav-user-badge" 
+                  onClick={() => setIsUserDropdownOpen(prev => !prev)}
+                  aria-expanded={isUserDropdownOpen}
+                >
+                  <div className="nav-user-avatar">
+                    {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                  </div>
+                  <span className="nav-user-name">{user.name.split(' ')[0]}</span>
+                  <ChevronDown size={14} className={`nav-user-chevron ${isUserDropdownOpen ? 'open' : ''}`} />
+                </button>
+
+                {isUserDropdownOpen && (
+                  <div className="nav-user-dropdown" onClick={e => e.stopPropagation()}>
+                    <div className="user-dropdown-header">
+                      <div className="user-dropdown-avatar">
+                        {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                      </div>
+                      <div className="user-dropdown-info">
+                        <div className="user-dropdown-fullname">{user.name}</div>
+                        <div className="user-dropdown-email">{user.email}</div>
+                      </div>
+                    </div>
+                    <div className="user-dropdown-divider" />
+                    <div className="user-dropdown-menu">
+                      <div className="user-dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                        <Calendar size={16} />
+                        <span>My Appointments</span>
+                        <span className="user-dropdown-pill">{user.appointmentsCount || 2} Active</span>
+                      </div>
+                      <div className="user-dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                        <FileText size={16} />
+                        <span>Medical Records</span>
+                      </div>
+                      <div className="user-dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
+                        <ShieldCheck size={16} />
+                        <span>Health Insurance</span>
+                      </div>
+                    </div>
+                    <div className="user-dropdown-divider" />
+                    <button 
+                      type="button"
+                      className="user-dropdown-logout-btn" 
+                      onClick={() => {
+                        logout();
+                        setIsUserDropdownOpen(false);
+                      }}
+                    >
+                      <LogOut size={16} />
+                      <span>Log Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <button className="nav-login-btn" onClick={() => openAuth('login')}>
+                  <User size={16} />
+                  Login
+                </button>
+                <button className="nav-signup-btn" onClick={() => openAuth('signup')}>
+                  Sign Up <ArrowRight size={16} />
+                </button>
+              </>
+            )}
+
+            <button className="nav-menu-btn" onClick={() => setIsMobileMenuOpen(true)} aria-label="Open menu">
               <Menu size={24} />
             </button>
           </div>
@@ -82,7 +166,7 @@ const Navbar = () => {
             <div className="nav-logo-text">
               <span className="nav-logo-name">Medi<span className="text-primary">Care+</span></span>
             </div>
-            <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+            <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)} aria-label="Close menu">
               <X size={24} />
             </button>
           </div>
@@ -98,18 +182,45 @@ const Navbar = () => {
           </nav>
           
           <div className="mobile-menu-auth">
-            <button className="mobile-login-btn" onClick={() => openAuth('login')}>
-              <User size={20} />
-              Login
-            </button>
-            <button className="mobile-signup-btn" onClick={() => openAuth('signup')}>
-              Sign Up <ArrowRight size={20} />
-            </button>
+            {isAuthenticated && user ? (
+              <div className="mobile-user-section">
+                <div className="mobile-user-card">
+                  <div className="mobile-user-avatar">
+                    {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div className="mobile-user-info">
+                    <div className="mobile-user-name">{user.name}</div>
+                    <div className="mobile-user-email">{user.email}</div>
+                  </div>
+                </div>
+                <button 
+                  className="mobile-logout-btn" 
+                  onClick={() => {
+                    logout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <LogOut size={18} />
+                  Log Out
+                </button>
+              </div>
+            ) : (
+              <>
+                <button className="mobile-login-btn" onClick={() => openAuth('login')}>
+                  <User size={20} />
+                  Login
+                </button>
+                <button className="mobile-signup-btn" onClick={() => openAuth('signup')}>
+                  Sign Up <ArrowRight size={20} />
+                </button>
+              </>
+            )}
           </div>
         </div>
       </header>
 
       <AuthModal 
+        key={`${authView}-${isAuthOpen}`}
         isOpen={isAuthOpen} 
         onClose={() => setIsAuthOpen(false)} 
         initialView={authView} 

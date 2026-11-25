@@ -9,26 +9,29 @@ import Medicines from './pages/Medicines';
 import LabTests from './pages/LabTests';
 import CustomCursor from './components/CustomCursor';
 import { CityProvider } from './context/CityContext';
+import { AuthProvider } from './context/AuthContext';
 import './index.css';
 
 function App() {
   return (
-    <CityProvider>
-      <Router>
-        <CustomCursor />
-        <div className="app">
-          <TopBar />
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/video-consult" element={<VideoConsult />} />
-            <Route path="/medicines" element={<Medicines />} />
-            <Route path="/lab-tests" element={<LabTests />} />
-          </Routes>
-          <Footer />
-        </div>
-      </Router>
-    </CityProvider>
+    <AuthProvider>
+      <CityProvider>
+        <Router>
+          <CustomCursor />
+          <div className="app">
+            <TopBar />
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/video-consult" element={<VideoConsult />} />
+              <Route path="/medicines" element={<Medicines />} />
+              <Route path="/lab-tests" element={<LabTests />} />
+            </Routes>
+            <Footer />
+          </div>
+        </Router>
+      </CityProvider>
+    </AuthProvider>
   );
 }
 
